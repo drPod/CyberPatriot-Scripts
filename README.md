@@ -1,4 +1,4 @@
-# CyberPatriot Competition Scripts Repository
+# CyberPatriot Competition Scripts
 
 ![CyberPatriot Logo](https://www.uscyberpatriot.org/Style%20Library/CyberPatriot/img/logo-cyberpatriot-white.png)
 
