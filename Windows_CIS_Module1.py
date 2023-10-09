@@ -1,6 +1,5 @@
 import subprocess
 
-
 def enforce_password_history():
     """
     This function ensures that 'Enforce password history' is set to '24 or more password(s)'. 1.1.1 (L1) Ensure 'Enforce password history' is set to '24 or more password(s)' (Automated)
@@ -59,7 +58,6 @@ def enforce_min_password_age():
     output = subprocess.check_output("secedit /export /cfg C:\\secpol.cfg", shell=True)
     # Convert the output to a string
     output_str = output.decode("utf-8")
-    import subprocess
 
     def enforce_max_password_age():
         """
