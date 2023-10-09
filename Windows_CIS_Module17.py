@@ -418,22 +418,22 @@ def task_17_7_3():
 
 def task_17_7_4():
     def check_mpssvc_rule_level_policy_change():
-        command = "auditpol /get /subcategory:\"MPSSVC Rule-Level Policy Change\""
+        command = "auditpol /get /subcategory:\"MPSSvc Rule-Level Policy Change\""
         try:
             result = subprocess.check_output(command, shell=True, text=True)
             if "Success and Failure" in result:
-                print("The 'MPSSVC Rule-Level Policy Change' setting is set correctly to 'Success and Failure'.")
+                print("The 'MPSSvc Rule-Level Policy Change' setting is set correctly to 'Success and Failure'.")
             else:
-                print("The 'MPSSVC Rule-Level Policy Change' setting is not set correctly. Applying the recommended setting...")
+                print("The 'MPSSvc Rule-Level Policy Change' setting is not set correctly. Applying the recommended setting...")
                 remediate_mpssvc_rule_level_policy_change()
         except Exception as e:
             print(f"An error occurred: {e}")
 
     def remediate_mpssvc_rule_level_policy_change():
-        command = "auditpol /set /subcategory:\"MPSSVC Rule-Level Policy Change\" /success:enable /failure:enable"
+        command = "auditpol /set /subcategory:\"MPSSvc Rule-Level Policy Change\" /success:enable /failure:enable"
         try:
             os.system(command)
-            print("The 'MPSSVC Rule-Level Policy Change' setting has been set to 'Success and Failure'.")
+            print("The 'MPSSvc Rule-Level Policy Change' setting has been set to 'Success and Failure'.")
         except Exception as e:
             print(f"An error occurred: {e}")
 
