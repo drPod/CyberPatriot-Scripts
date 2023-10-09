@@ -59,90 +59,123 @@ def enforce_min_password_age():
     output = subprocess.check_output("secedit /export /cfg C:\\secpol.cfg", shell=True)
     # Convert the output to a string
     output_str = output.decode("utf-8")
-    # Split the string into lines
-    output_lines = output_str.split("\r\n")
-    # Find the line that contains the minimum password age setting
-    for line in output_lines:
-        if "MinimumPasswordAge" in line:
-            # Get the current value of the minimum password age setting
-            current_value = int(line.split("=")[1])
-            # If the current value is less than 1, set it to 1
-            if current_value < 1:
-                import subprocess
+    import subprocess
 
-                def enforce_max_password_age():
-                    """
-                    This function ensures that 'Maximum password age' is set to '90 or fewer days, but not 0 days'. 1.1.2 (L1) Ensure 'Maximum password age' is set to '90 or fewer days, but not 0 days' (Automated)
-                    """
-                    # Run the secedit command to get the current security policy
-                    subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
-                    # Set the maximum password age to 90 days
-                    subprocess.run(
-                        "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:0 /passwordchg:1 /autologoff:15 /enablesmartcard:0",
-                        shell=True,
-                    )
+    def enforce_max_password_age():
+        """
+        This function ensures that 'Maximum password age' is set to '90 or fewer days, but not 0 days'. 1.1.2 (L1) Ensure 'Maximum password age' is set to '90 or fewer days, but not 0 days' (Automated)
+        """
+        try:
+            # Run the secedit command to get the current security policy
+            subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
+            # Set the maximum password age to 90 days
+            subprocess.run(
+                "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:0 /passwordchg:1 /autologoff:15 /enablesmartcard:0",
+                shell=True,
+            )
+        except Exception as e:
+            print(f"An error occurred in enforce_max_password_age: {e}")
 
-                def enforce_min_password_length():
-                    """
-                    This function ensures that 'Minimum password length' is set to '14 or more character(s)'. 1.1.4 (L1) Ensure 'Minimum password length' is set to '14 or more character(s)' (Automated)
-                    """
-                    # Run the secedit command to get the current security policy
-                    subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
-                    # Set the minimum password length to 14 characters
-                    subprocess.run(
-                        "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0",
-                        shell=True,
-                    )
+    def enforce_min_password_length():
+        """
+        This function ensures that 'Minimum password length' is set to '14 or more character(s)'. 1.1.4 (L1) Ensure 'Minimum password length' is set to '14 or more character(s)' (Automated)
+        """
+        try:
+            # Run the secedit command to get the current security policy
+            subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
+            # Set the minimum password length to 14 characters
+            subprocess.run(
+                "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0",
+                shell=True,
+            )
+        except Exception as e:
+            print(f"An error occurred in enforce_min_password_length: {e}")
 
-                def enforce_password_complexity():
-                    """
-                    This function ensures that 'Password must meet complexity requirements' is set to 'Enabled'. 1.1.5 (L1) Ensure 'Password must meet complexity requirements' is set to 'Enabled' (Automated)
-                    """
-                    # Run the secedit command to get the current security policy
-                    subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
-                    # Set the password complexity to enabled
-                    subprocess.run(
-                        "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0",
-                        shell=True,
-                    )
+    def enforce_password_complexity():
+        """
+        This function ensures that 'Password must meet complexity requirements' is set to 'Enabled'. 1.1.5 (L1) Ensure 'Password must meet complexity requirements' is set to 'Enabled' (Automated)
+        """
+        try:
+            # Run the secedit command to get the current security policy
+            subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
+            # Set the password complexity to enabled
+            subprocess.run(
+                "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0",
+                shell=True,
+            )
+        except Exception as e:
+            print(f"An error occurred in enforce_password_complexity: {e}")
 
-                def enforce_relax_password_length_limits():
-                    """
-                    This function ensures that 'Relax minimum password length limits' is set to 'Enabled'. 1.1.6 (L1) Ensure 'Relax minimum password length limits' is set to 'Enabled' (Automated)
-                    """
-                    # Run the secedit command to get the current security policy
-                    subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
-                    # Set the relax minimum password length limits to enabled
-                    subprocess.run(
-                        "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0 /minpwlen:0",
-                        shell=True,
-                    )
+    def enforce_relax_password_length_limits():
+        """
+        This function ensures that 'Relax minimum password length limits' is set to 'Enabled'. 1.1.6 (L1) Ensure 'Relax minimum password length limits' is set to 'Enabled' (Automated)
+        """
+        try:
+            # Run the secedit command to get the current security policy
+            subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
+            # Set the relax minimum password length limits to enabled
+            subprocess.run(
+                "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0 /minpwlen:0",
+                shell=True,
+            )
+        except Exception as e:
+            print(f"An error occurred in enforce_relax_password_length_limits: {e}")
 
-                def disable_reversible_passwords():
-                    """
-                    This function ensures that 'Store passwords using reversible encryption' is set to 'Disabled'. 1.1.7 (L1) Ensure 'Store passwords using reversible encryption' is set to 'Disabled' (Automated)
-                    """
-                    # Run the secedit command to get the current security policy
-                    subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
-                    # Disable reversible passwords
-                    subprocess.run(
-                        "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0 /clearpasswordhistory:1",
-                        shell=True,
-                    )
+    def disable_reversible_passwords():
+        """
+        This function ensures that 'Store passwords using reversible encryption' is set to 'Disabled'. 1.1.7 (L1) Ensure 'Store passwords using reversible encryption' is set to 'Disabled' (Automated)
+        """
+        try:
+            # Run the secedit command to get the current security policy
+            subprocess.run("secedit /export /cfg C:\\secpol.cfg", shell=True)
+            # Disable reversible passwords
+            subprocess.run(
+                "net accounts /maxpwage:90 /forcelogoff:1 /minpwlen:14 /minpwage:1 /lockoutthreshold:5 /lockoutduration:30 /lockoutwindow:30 /uniquepw:1 /reqpw:1 /passwordchg:1 /autologoff:15 /enablesmartcard:0 /clearpasswordhistory:1",
+                shell=True,
+            )
+        except Exception as e:
+            print(f"An error occurred in disable_reversible_passwords: {e}")
 
-                enforce_max_password_age()
-                enforce_min_password_length()
-                enforce_password_complexity()
-                enforce_relax_password_length_limits()
-                disable_reversible_passwords()
-    """
-    This function ensures that 'Account lockout duration' is set to '15 or more minute(s)'. 1.2.1 (L1) Ensure 'Account lockout duration' is set to '15 or more minute(s)' (Automated)
-    """
-    # Run the net accounts command to get the current security policy
-    output = subprocess.check_output("net accounts", shell=True)
-    # Convert the output to a string
-    output_str = output.decode("utf-8")
-    # Split the string into lines
+    try:
+        # Run the net accounts command to get the current security policy
+        output = subprocess.check_output("net accounts", shell=True)
+        # Convert the output to a string
+        output_str = output.decode("utf-8")
+        # Split the string into lines
+        output_lines = output_str.split("\r\n")
+        # Find the line that contains the minimum password age setting
+        for line in output_lines:
+            if "MinimumPasswordAge" in line:
+                # Get the current value of the minimum password age setting
+                current_value = int(line.split("=")[1])
+                # If the current value is less than 1, set it to 1
+                if current_value < 1:
+                    enforce_max_password_age()
+                    enforce_min_password_length()
+                    enforce_password_complexity()
+                    enforce_relax_password_length_limits()
+                    disable_reversible_passwords()
+                    """
+                    This function ensures that 'Account lockout duration' is set to '15 or more minute(s)'. 1.2.1 (L1) Ensure 'Account lockout duration' is set to '15 or more minute(s)' (Automated)
+                    """
+                    # Run the net accounts command to get the current security policy
+                    output = subprocess.check_output("net accounts", shell=True)
+                    # Convert the output to a string
+                    output_str = output.decode("utf-8")
+                    # Split the string into lines
+                    output_lines = output_str.split("\r\n")
+                    # Find the line that contains the account lockout duration setting
+                    for line in output_lines:
+                        if "AccountLockoutDuration" in line:
+                            # Get the current value of the account lockout duration setting
+                            current_value = int(line.split("=")[1])
+                            # If the current value is less than 15, set it to 15
+                            if current_value < 15:
+                                subprocess.run(
+                                    "net accounts /lockoutduration:15", shell=True
+                                )
+    except Exception as e:
+        print(f"An error occurred in the script: {e}")
     output_lines = output_str.split("\r\n")
     # Find the line that contains the account lockout duration setting
     for line in output_lines:
