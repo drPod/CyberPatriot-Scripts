@@ -254,3 +254,12 @@ def enforce_reset_account_lockout_counter():
             if current_value < 15:
                 subprocess.run(f"net accounts /lockoutduration:15 /force", shell=True)
                 break
+
+
+enforce_password_history()
+enforce_max_password_age()
+enforce_min_password_age()
+enforce_min_password_age()
+enforce_account_lockout_threshold()
+enable_admin_account_lockout()
+enforce_reset_account_lockout_counter()
