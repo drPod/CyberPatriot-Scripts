@@ -153,3 +153,136 @@ ensure_audit_log_storage_size_configured() {
         fi
     fi
 }
+
+ensure_audit_logs_not_deleted() {
+    # 4.1.2.2 Ensure audit logs are not automatically deleted
+    local max_log_file_action=$(grep -E "^\s*max_log_file_action\s*=" /etc/audit/auditd.conf | awk -F= '{print $2}')
+    if [ -z "$max_log_file_action" ]; then
+        echo "max_log_file_action is not set in /etc/audit/auditd.conf. Setting it to keep_logs..."
+        if ! sed -i '/^\s*max_log_file_action\s*=/d' /etc/audit/auditd.conf >/dev/null 2>&1; then
+            echo "Failed to delete max_log_file_action from /etc/audit/auditd.conf."
+            return 1
+        fi
+        if ! echo "max_log_file_action = keep_logs" >> /etc/audit/auditd.conf; then
+            echo "Failed to set max_log_file_action to keep_logs in /etc/audit/auditd.conf."
+            return 1
+        fi
+    elif [ "$max_log_file_action" != "keep_logs" ]; then
+        echo "max_log_file_action is set to $max_log_file_action in /etc/audit/auditd.conf. Setting it to keep_logs..."
+        if ! sed -i "s/^\s*max_log_file_action\s*=.*/max_log_file_action = keep_logs/" /etc/audit/auditd.conf >/dev/null 2>&1; then
+            echo "Failed to set max_log_file_action to keep_logs in /etc/audit/auditd.conf."
+            return 1
+        fi
+    else
+        echo "Audit logs are not automatically deleted."
+    fi
+}
+
+ensure_audit_logs_full_action_configured() {
+    # 4.1.2.3 Ensure system is disabled when audit logs are full
+    local disk_full_action=$(grep -E "^\s*disk_full_action\s*=" /etc/audit/auditd.conf | awk -F= '{print $2}')
+    if [ -z "$disk_full_action" ]; then
+        echo "disk_full_action is not set in /etc/audit/auditd.conf. Setting it to halt..."
+        if ! sed -i '/^\s*disk_full_action\s*=/d' /etc/audit/auditd.conf >/dev/null 2>&1; then
+            echo "Failed to delete disk_full_action from /etc/audit/auditd.conf."
+            return 1
+        fi
+        if ! echo "disk_full_action = halt" >> /etc/audit/auditd.conf; then
+            echo "Failed to set disk_full_action to halt in /etc/audit/auditd.conf."
+            return 1
+        fi
+    elif [ "$disk_full_action" != "halt" ]; then
+        echo "disk_full_action is set to $disk_full_action in /etc/audit/auditd.conf. Setting it to halt..."
+        if ! sed -i "s/^\s*disk_full_action\s*=.*/disk_full_action = halt/" /etc/audit/auditd.conf >/dev/null 2>&1; then
+            echo "Failed to set disk_full_action to halt in /etc/audit/auditd.conf."
+            return 1
+        fi
+    else
+        echo "System is disabled when audit logs are full."
+    fi
+}
+
+ensure_sudoers_changes_collected() {
+    # 4.1.3.1 Ensure changes to system administration scope (sudoers) is collected
+    if ! grep -q "^\s*Defaults\s*log_input" /etc/sudoers /etc/sudoers.d/*; then
+        echo "Defaults log_input is not set in /etc/sudoers or /etc/sudoers.d/* files. Setting it now..."
+        if ! echo "Defaults log_input" >> /etc/sudoers; then
+            echo "Failed to set Defaults log_input in /etc/sudoers."
+            return 1
+        fi
+        if ! echo "Defaults log_input" >> /etc/sudoers.d/*; then
+            echo "Failed to set Defaults log_input in /etc/sudoers.d/* files."
+            return 1
+        fi
+    else
+        echo "Changes to system administration scope (sudoers) are being collected."
+    fi
+}
+
+ensure_actions_as_another_user_logged() {
+    # 4.1.3.2 Ensure actions as another user are always logged
+    if ! grep -q "^\s*Defaults\s*log_output" /etc/sudoers /etc/sudoers.d/*; then
+        echo "Defaults log_output is not set in /etc/sudoers or /etc/sudoers.d/* files. Setting it now..."
+        if ! echo "Defaults log_output" >> /etc/sudoers; then
+            echo "Failed to set Defaults log_output in /etc/sudoers."
+            return 1
+        fi
+        if ! echo "Defaults log_output" >> /etc/sudoers.d/*; then
+            echo "Failed to set Defaults log_output in /etc/sudoers.d/* files."
+            return 1
+        fi
+    else
+        echo "Actions as another user are always logged."
+    fi
+}
+
+ensure_sudo_log_file_changes_collected() {
+    # 4.1.3.3 Ensure events that modify the sudo log file are collected
+    if ! grep -q "^\s*Defaults\s*log_file" /etc/sudoers /etc/sudoers.d/*; then
+        echo "Defaults log_file is not set in /etc/sudoers or /etc/sudoers.d/* files. Setting it now..."
+        if ! echo "Defaults log_file=/var/log/sudo.log" >> /etc/sudoers; then
+            echo "Failed to set Defaults log_file in /etc/sudoers."
+            return 1
+        fi
+        if ! echo "Defaults log_file=/var/log/sudo.log" >> /etc/sudoers.d/*; then
+            echo "Failed to set Defaults log_file in /etc/sudoers.d/* files."
+            return 1
+        fi
+    else
+        echo "Events that modify the sudo log file are being collected."
+    fi
+}
+
+ensure_time_modification_events_collected() {
+    # 4.1.3.4 Ensure events that modify date and time information are collected
+    if ! grep -q "time-change" /etc/audit/rules.d/*.rules; then
+        echo "time-change rule is not present in /etc/audit/rules.d/*.rules files. Adding it now..."
+        if ! echo "-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change" >> /etc/audit/rules.d/time.rules; then
+            echo "Failed to add time-change rule to /etc/audit/rules.d/time.rules."
+            return 1
+        fi
+        if ! echo "-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change" >> /etc/audit/rules.d/time.rules; then
+            echo "Failed to add time-change rule to /etc/audit/rules.d/time.rules."
+            return 1
+        fi
+        if ! echo "-a always,exit -F arch=b64 -S clock_settime -k time-change" >> /etc/audit/rules.d/time.rules; then
+            echo "Failed to add time-change rule to /etc/audit/rules.d/time.rules."
+            return 1
+        fi
+        if ! echo "-a always,exit -F arch=b32 -S clock_settime -k time-change" >> /etc/audit/rules.d/time.rules; then
+            echo "Failed to add time-change rule to /etc/audit/rules.d/time.rules."
+            return 1
+        fi
+        if ! echo "-w /etc/localtime -p wa -k time-change" >> /etc/audit/rules.d/time.rules; then
+            echo "Failed to add time-change rule to /etc/audit/rules.d/time.rules."
+            return 1
+        fi
+        if ! echo "-w /etc/timezone -p wa -k time-change" >> /etc/audit/rules.d/time.rules; then
+            echo "Failed to add time-change rule to /etc/audit/rules.d/time.rules."
+            return 1
+        fi
+        service auditd restart
+    else
+        echo "Events that modify date and time information are being collected."
+    fi
+}
