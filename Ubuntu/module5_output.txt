@@ -1,0 +1,288 @@
+Ensuring cron daemon is enabled and running...
+cron daemon is enabled.
+cron daemon is running.
+Ensuring permissions on /etc/crontab are configured...
+Permissions on /etc/crontab are not configured. Setting permissions to 600...
+Ensuring permissions on /etc/cron.hourly are configured...
+Permissions on /etc/cron.hourly are not configured. Setting permissions to 600...
+Ensuring permissions on /etc/cron.daily are configured...
+Permissions on /etc/cron.daily are not configured. Setting permissions to 600...
+Ensuring permissions on /etc/cron.weekly are configured...
+Permissions on /etc/cron.weekly are not configured. Setting permissions to 600...
+Ensuring permissions on /etc/cron.monthly are configured...
+Permissions on /etc/cron.monthly are not configured. Setting permissions to 600...
+Ensuring permissions on /etc/cron.d are configured...
+Permissions on /etc/cron.d are not configured. Setting permissions to 600...
+Ensuring cron is restricted to authorized users...
+Ensuring at is restricted to authorized users...
+Ensuring permissions on /etc/cron.daily are configured...
+Permissions on /etc/cron.daily are configured.
+Ensuring at/cron is restricted to authorized users...
+Ensuring sudo is installed...
+sudo is already installed.
+Ensuring sudo log file exists...
+sudo log file has been created.
+Ensuring sudo commands use pty...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo commands now use pty.
+Ensuring users must provide password for privilege escalation...
+Users already must provide password for privilege escalation.
+Ensuring re-authentication for privilege escalation is not disabled globally...
+Re-authentication for privilege escalation is already enabled.
+Ensuring sudo authentication timeout is configured correctly...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo authentication timeout is now set to 300 seconds.
+Ensuring access to the su command is restricted...
+Access to the su command is now restricted.
+Ensuring password creation requirements are configured...
+./Ubuntu_CIS_Module_5.sh: line 342: password: command not found
+./Ubuntu_CIS_Module_5.sh: line 343: password: command not found
+./Ubuntu_CIS_Module_5.sh: line 344: password: command not found
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Password creation requirements are now configured.
+Ensuring lockout for failed password attempts is configured...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Lockout for failed password attempts is now configured.
+Ensuring password reuse is limited...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Password reuse is now limited.
+Ensuring password hashing algorithm is up to date with the latest standards...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Password hashing algorithm is now up to date with the latest standards.
+Ensuring minimum days between password changes is configured...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Minimum days between password changes is now configured.
+Ensuring password expiration is 365 days or less...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Password expiration is now configured.
+Ensuring inactive password lock is 30 days or less...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Inactive password lock is now configured.
+Ensuring all users last password change date is in the past...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user root has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user daemon has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user bin has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user sys has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user sync has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user games has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user man has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user lp has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user mail has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user news has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user uucp has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user proxy has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user www-data has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user backup has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user list has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user irc has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user gnats has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user nobody has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user systemd-network has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user systemd-resolve has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user messagebus has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user systemd-timesync has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user syslog has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user _apt has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user tss has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user uuidd has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user tcpdump has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user sshd has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user pollinate has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user landscape has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user fwupd-refresh has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user ec2-instance-connect has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user _chrony has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user ubuntu has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user lxd has been set to today's date.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Last password change date for user systemd-journal-remote has been set to today's date.
+Ensuring system accounts are secured...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account daemon has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account bin has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account sys has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account sync has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account games has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account man has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account lp has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account mail has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account news has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account uucp has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account proxy has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account www-data has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account backup has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account list has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account irc has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account gnats has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account systemd-network has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account systemd-resolve has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account messagebus has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account systemd-timesync has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account syslog has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account _apt has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account tss has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account uuidd has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account tcpdump has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account sshd has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account pollinate has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account landscape has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account fwupd-refresh has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account ec2-instance-connect has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account _chrony has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account lxd has been locked.
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+passwd: password expiry information changed.
+Account systemd-journal-remote has been locked.
+System accounts are now secured.
+Ensuring default group for the root account is GID 0...
+Default group for the root account is already GID 0.
+Ensuring default user umask is 027 or more restrictive...
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Default user umask is now 027 or more restrictive.
+Ensuring default user shell timeout is 900 seconds or less...
+./Ubuntu_CIS_Module_5.sh: line 631: [: : integer expression expected
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Default user shell timeout is now 900 seconds or less.

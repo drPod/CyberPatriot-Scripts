@@ -1,0 +1,5 @@
+sudo: /etc/sudoers:57:20: unknown defaults entry "log_file"
+Ensure SSH access is limited manually, too lazy to write a script that does that
+./SSH_config.sh: line 136: HostbasedAuthentication: command not found
+./SSH_config.sh: line 185: IgnoreRhosts: command not found
+./SSH_config.sh: line 218: Ciphers: command not found
