@@ -1,0 +1,111 @@
+#!/bin/bash
+
+# DONT USE THIS SCRIPT IT DOESNT WORK
+
+# This script provides functions for log analysis and reporting on an Ubuntu system for a CyberPatriot competition.
+
+# Function to monitor system logs for specific events or patterns and generate a report
+monitor_logs() {
+    # Check if log file exists
+    if [ ! -f "$1" ]; then
+        echo "Error: Log file $1 does not exist."
+        return 1
+    fi
+
+    # Check if pattern exists in log file
+    if ! grep -q "$2" "$1"; then
+        echo "No matches found for pattern $2 in log file $1."
+        return 1
+    fi
+
+    # Generate report for pattern in log file
+    grep "$2" "$1" >"$3"
+    echo "Report generated for pattern $2 in log file $1 and saved to $3."
+}
+
+# Function to analyze logs to identify and report any suspicious activities or security events
+analyze_logs() {
+    # Check if log file exists
+    if [ ! -f "$1" ]; then
+        echo "Error: Log file $1 does not exist."
+        return 1
+    fi
+
+    # Analyze log file for suspicious activities or security events
+    # Replace the following command with your own analysis command
+    # Example: awk '/Failed password/ {print $0}' "$1" > "$2"
+    echo "Log analysis completed for $1 and saved to $2."
+}
+
+# Function to display the size and last modification date of log files
+display_log_info() {
+    # Check if log file exists
+    if [ ! -f "$1" ]; then
+        echo "Error: Log file $1 does not exist."
+        return 1
+    fi
+
+    # Display size and last modification date of log file
+    ls -lh "$1"
+}
+
+# Function to compress and archive log files to save disk space
+compress_logs() {
+    # Check if log file exists
+    if [ ! -f "$1" ]; then
+        echo "Error: Log file $1 does not exist."
+        return 1
+    fi
+
+    # Compress and archive log file
+    tar -czvf "$2" "$1"
+    echo "Log file $1 compressed and archived to $2."
+}
+
+# Main function
+main() {
+    # Check if script is run as root
+    if [ "$(id -u)" != "0" ]; then
+        echo "Error: This script must be run as root."
+        exit 1
+    fi
+
+    # Check if log file path is provided
+    if [ -z "$1" ]; then
+        echo "Error: Log file path not provided."
+        exit 1
+    fi
+
+    # Check if log file exists
+    if [ ! -f "$1" ]; then
+        echo "Error: Log file $1 does not exist."
+        exit 1
+    fi
+
+    # Check if report file path is provided
+    if [ -z "$2" ]; then
+        echo "Error: Report file path not provided."
+        exit 1
+    fi
+
+    # Check if archive file path is provided
+    if [ -z "$3" ]; then
+        echo "Error: Archive file path not provided."
+        exit 1
+    fi
+
+    # Monitor system logs for specific events or patterns and generate a report
+    monitor_logs "$1" "pattern" "$2"
+
+    # Analyze logs to identify and report any suspicious activities or security events
+    analyze_logs "$1" "$2"
+
+    # Display the size and last modification date of log files
+    display_log_info "$1"
+
+    # Compress and archive log files to save disk space
+    compress_logs "$1" "$3"
+}
+
+# Call main function with command line arguments
+main "$@"

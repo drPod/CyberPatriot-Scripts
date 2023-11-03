@@ -11,10 +11,11 @@ install_auditd() {
         if ! apt-get update >/dev/null 2>&1; then
             echo "Failed to update package list."
             return 1
-        fi
-        if ! apt-get install -y auditd >/dev/null 2>&1; then
+        elif ! apt-get install -y auditd >/dev/null 2>&1; then
             echo "Failed to install auditd package."
             return 1
+        else
+            echo "auditd package was installed successfully."
         fi
     else
         echo "auditd package is already installed."
@@ -55,10 +56,11 @@ ensure_auditing_for_processes_enabled() {
         if ! sed -i '/^\s*GRUB_CMDLINE_LINUX=/ s/"$/ audit=1"/' /etc/default/grub >/dev/null 2>&1; then
             echo "Failed to add kernel boot parameters."
             return 1
-        fi
-        if ! update-grub >/dev/null 2>&1; then
+        elif ! update-grub >/dev/null 2>&1; then
             echo "Failed to update grub."
             return 1
+        else
+            echo "Kernel boot parameters updated successfully."
         fi
     else
         if ! grep -q "^\s*linux.*audit=1" /boot/grub/grub.cfg && ! grep -q "^\s*linux.*audit=1" /boot/grub/grub.conf; then
@@ -228,10 +230,12 @@ ensure_sudoers_changes_collected() {
             echo "Failed to set Defaults log_input in /etc/sudoers."
             return 1
         fi
-        if ! echo "Defaults log_input" >>/etc/sudoers.d/*; then
-            echo "Failed to set Defaults log_input in /etc/sudoers.d/* files."
-            return 1
-        fi
+        for file in /etc/sudoers.d/*; do
+            if ! echo "Defaults log_input" >>"$file"; then
+                echo "Failed to set Defaults log_input in $file."
+                return 1
+            fi
+        done
     else
         echo "Changes to system administration scope (sudoers) are being collected."
     fi
@@ -247,10 +251,12 @@ ensure_actions_as_another_user_logged() {
             echo "Failed to set Defaults log_output in /etc/sudoers."
             return 1
         fi
-        if ! echo "Defaults log_output" >>/etc/sudoers.d/*; then
-            echo "Failed to set Defaults log_output in /etc/sudoers.d/* files."
-            return 1
-        fi
+        for file in /etc/sudoers.d/*; do
+            if ! echo "Defaults log_output" >>"$file"; then
+                echo "Failed to set Defaults log_output in $file."
+                return 1
+            fi
+        done
     else
         echo "Actions as another user are always logged."
     fi
@@ -266,10 +272,12 @@ ensure_sudo_log_file_changes_collected() {
             echo "Failed to set Defaults log_file in /etc/sudoers."
             return 1
         fi
-        if ! echo "Defaults log_file=/var/log/sudo.log" >>/etc/sudoers.d/*; then
-            echo "Failed to set Defaults log_file in /etc/sudoers.d/* files."
-            return 1
-        fi
+        for file in /etc/sudoers.d/*; do
+            if ! echo "Defaults log_file=/var/log/sudo.log" >>"$file"; then
+                echo "Failed to set Defaults log_file in $file."
+                return 1
+            fi
+        done
     else
         echo "Events that modify the sudo log file are being collected."
     fi
