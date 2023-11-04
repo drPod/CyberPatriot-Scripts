@@ -20,14 +20,14 @@ autoremove_packages() {
 }
 
 # Function to schedule regular system updates
-schedule_updates() {
-    echo "Scheduling regular system updates using crontab..."
-    # Add a cron job to run the update script daily at 3am
-    (
-        crontab -l
-        echo "0 3 * * * /bin/bash /path/to/updates.sh"
-    ) | crontab -
-}
+#schedule_updates() {
+#    echo "Scheduling regular system updates using crontab..."
+#    # Add a cron job to run the update script daily at 3am
+#    (
+#        crontab -l
+#        echo "0 3 * * * /bin/bash /path/to/updates.sh"
+#    ) | crontab -
+#}
 
 #! idk y this is here
 # Function to generate and display a report of the update process
@@ -45,7 +45,7 @@ main() {
     install_updates
     autoremove_packages
     #    generate_report
-    schedule_updates
+    #    schedule_updates
 }
 
 # Call the main function

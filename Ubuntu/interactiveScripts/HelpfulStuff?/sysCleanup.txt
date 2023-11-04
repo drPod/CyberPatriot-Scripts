@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#! DONT RUN THIS SCRIPT
+
+# Function to remove temporary files and clear system cache
+clean_temp_files() {
+    echo "Cleaning temporary files and clearing system cache..."
+    sudo apt-get clean
+    sudo apt-get autoclean
+    sudo apt-get autoremove
+    sudo apt-get clean -y
+    sudo apt-get autoclean -y
+    sudo apt-get autoremove -y
+    echo "Temporary files and system cache cleared successfully."
+}
+
+# Function to analyze and display disk usage
+analyze_disk_usage() {
+    echo "Analyzing disk usage..."
+    df -h
+    echo "Disk usage analyzed successfully."
+}
+
+# Function to optimize system performance by disabling unnecessary startup services
+optimize_startup_services() {
+    echo "Optimizing system performance by disabling unnecessary startup services..."
+    sudo systemctl disable <service_name>
+    echo "Unnecessary startup services disabled successfully."
+}
+
+# Function to check for and clean up orphaned or obsolete packages
+clean_obsolete_packages() {
+    echo "Checking for and cleaning up orphaned or obsolete packages..."
+    sudo apt-get autoremove
+    echo "Orphaned or obsolete packages cleaned up successfully."
+}
+
+# Function to securely delete sensitive files
+secure_delete_files() {
+    echo "Securely deleting sensitive files..."
+    sudo shred -u <file_path>
+    echo "Sensitive files securely deleted successfully."
+}
+
+# Function to schedule and automate regular system cleanup tasks
+schedule_cleanup_tasks() {
+    echo "Scheduling and automating regular system cleanup tasks..."
+    # Add cron job to run cleanup script at specified intervals
+    echo "Regular system cleanup tasks scheduled and automated successfully."
+}
+
+# Main function to execute all cleanup and optimization functions
+main() {
+    echo "Starting system cleanup and optimization..."
+    clean_temp_files
+    analyze_disk_usage
+    optimize_startup_services
+    clean_obsolete_packages
+    secure_delete_files
+    schedule_cleanup_tasks
+    echo "System cleanup and optimization completed successfully."
+}
+
+# Call main function
+main

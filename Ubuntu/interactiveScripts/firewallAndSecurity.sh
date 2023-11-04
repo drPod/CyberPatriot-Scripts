@@ -47,11 +47,16 @@ function check_selinux_apparmor() {
     if [ -f /etc/selinux/config ]; then
         echo "SELinux is installed on this system"
         sudo cat /etc/selinux/config
-    elif [ -f /etc/apparmor/parser.conf ]; then
+        sudo setenforce 1
+    fi
+    if [ -f /etc/apparmor/parser.conf ]; then
         echo "AppArmor is installed on this system"
         sudo aa-status
-    else
+        sudo aa-enforce /etc/apparmor.d/*
+    fi
+    if [ ! -f /etc/selinux/config ] && [ ! -f /etc/apparmor/parser.conf ]; then
         echo "Neither SELinux nor AppArmor is installed on this system"
+        sudo apt install selinux-utils apparmor-utils
     fi
 }
 
