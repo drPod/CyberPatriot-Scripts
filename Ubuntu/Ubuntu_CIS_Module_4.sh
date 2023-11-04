@@ -433,7 +433,12 @@ ensure_user_group_modification_events_collected() {
             echo "Failed to add user/group modification rule to /etc/audit/rules.d/user-group.rules."
             return 1
         fi
+        if ! echo "-w /etc/security/opasswd -p wa -k identity" >>/etc/audit/rules.d/user-group.rules; then
+            echo "Failed to add user/group modification rule to /etc/audit/rules.d/user-group.rules."
+            return 1
+        fi
         service auditd restart
+        echo "Successfully added rule"
     else
         echo "Events that modify user/group information are being collected."
     fi
