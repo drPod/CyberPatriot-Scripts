@@ -434,14 +434,156 @@ ensure_nftables_default_deny() {
     fi
 }
 
-#! THIS SCRIPT IS UNFINISHED. KEEP WRITING
+ensure_nftables_service_enabled() {
+    # 3.5.2.9 Ensure nftables service is enabled
+    echo "Ensuring nftables service is enabled..."
+    if sudo systemctl is-enabled nftables >/dev/null; then
+        echo "nftables service is already enabled"
+    else
+        sudo systemctl enable nftables
+        if sudo systemctl is-enabled nftables >/dev/null; then
+            echo "nftables service enabled successfully"
+        else
+            echo "Failed to enable nftables service"
+        fi
+    fi
+}
+
+ensure_nftables_rules_permanent() {
+    # 3.5.2.10 Ensure nftables rules are permanent
+    echo "Ensuring nftables rules are permanent..."
+    sudo nft list ruleset >/etc/nftables.conf
+    if [ $? -eq 0 ]; then
+        echo "nftables rules saved to /etc/nftables.conf"
+        sudo systemctl enable nftables.service
+        if [ $? -eq 0 ]; then
+            echo "nftables service enabled at boot time"
+            return 0
+        else
+            echo "Failed to enable nftables service at boot time"
+            return 1
+        fi
+    else
+        echo "Failed to save nftables rules to /etc/nftables.conf"
+        return 1
+    fi
+}
 
 configure_nftables() {
+    # 3.5.2 Configure nftables
     ensure_nftables_installed
     ensure_ufw_uninstalled_or_disabled_with_nftables
     ensure_nftables_table_exists
     ensure_nftables_base_chains_exist
     ensure_nftables_loopback_traffic
+    ensure_nftables_default_deny
+    ensure_nftables_service_enabled
+    ensure_nftables_rules_permanent
 }
 
 configure_nftables
+
+ensure_iptables_installed() {
+    # 3.5.3.1.1 Ensure iptables packages are installed
+    echo "Ensuring iptables packages are installed..."
+    sudo apt-get install -y iptables
+    if [ $? -eq 0 ]; then
+        echo "iptables packages installed successfully"
+        return 0
+    else
+        echo "Failed to install iptables packages"
+        return 1
+    fi
+}
+
+# ensure_nftables_not_installed_with_iptables() {
+#     # 3.5.3.1.2 Ensure nftables is not installed with iptables
+#     echo "Ensuring nftables is not installed with iptables..."
+#     if dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n' nftables 2>/dev/null | grep -q "not-installed"; then
+#         echo "nftables is not installed"
+#         return 0
+#     else
+#         sudo apt purge nftables
+#         if dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n' nftables 2>/dev/null | grep -q "not-installed"; then
+#             echo "nftables removed successfully"
+#             return 0
+#         else
+#             echo "Failed to remove nftables"
+#             return 1
+#         fi
+#     fi
+# }
+
+#! 3.5.3.1.2 and 3.5.3.1.3 don't make sense to me
+
+configure_iptables() {
+    # 3.5.3.1 Configure iptables software
+    ensure_iptables_installed
+    # ensure_nftables_not_installed_with_iptables
+}
+
+configure_iptables
+
+ensure_ip6tables_installed() {
+    # 3.5.3.3.1 Ensure ip6tables default deny firewall policy
+    echo "Ensuring ip6tables is installed..."
+    sudo apt-get install -y ip6tables
+    if [ $? -eq 0 ]; then
+        echo "ip6tables installed successfully"
+    else
+        echo "Failed to install ip6tables"
+        return 1
+    fi
+}
+
+configure_ip6tables_default_deny() {
+    # 3.5.3.3.1 Ensure ip6tables default deny firewall policy
+    echo "Configuring ip6tables..."
+    sudo ip6tables -P INPUT DROP
+    sudo ip6tables -P FORWARD DROP
+    sudo ip6tables -P OUTPUT ACCEPT
+    if [ $? -eq 0 ]; then
+        echo "ip6tables default deny firewall policy configured successfully"
+    else
+        echo "Failed to configure ip6tables default deny firewall policy"
+        return 1
+    fi
+}
+
+configure_ip6tables_loopback_traffic() {
+    # 3.5.3.3.2 Ensure ip6tables loopback traffic is configured
+    echo "Configuring ip6tables loopback traffic..."
+    sudo ip6tables -A INPUT -i lo -j ACCEPT
+    sudo ip6tables -A OUTPUT -o lo -j ACCEPT
+    if [ $? -eq 0 ]; then
+        echo "ip6tables loopback traffic configured successfully"
+    else
+        echo "Failed to configure ip6tables loopback traffic"
+        return 1
+    fi
+}
+
+configure_ip6tables_open_ports() {
+    # 3.5.3.3.4 Ensure ip6tables firewall rules exist for all open ports
+    echo "Configuring ip6tables firewall rules for all open ports..."
+    open_ports=$(netstat -ln6t | awk '/^tcp6/ {print $4}' | awk -F':' '{print $NF}' | sort -u)
+    for port in $open_ports; do
+        sudo ip6tables -A INPUT -p tcp --dport $port -j ACCEPT
+        sudo ip6tables -A INPUT -p udp --dport $port -j ACCEPT
+    done
+    if [ $? -eq 0 ]; then
+        echo "ip6tables firewall rules configured successfully for all open ports"
+    else
+        echo "Failed to configure ip6tables firewall rules for all open ports"
+        return 1
+    fi
+}
+
+configure_ipv6_ip6tables() {
+    # 3.5.3.3 Configure IPv6 ip6tables
+    configure_ip6tables_default_deny
+    configure_ip6tables_loopback_traffic
+    configure_ip6tables_open_ports
+}
+
+configure_ipv6_ip6tables
