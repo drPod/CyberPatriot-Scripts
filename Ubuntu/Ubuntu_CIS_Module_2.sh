@@ -540,26 +540,26 @@ remove_dns_server() {
     fi
 }
 
-remove_ftp_server() {
-    # 2.2.8 Ensure FTP Server is not installed
-    echo 'Checking if FTP Server is installed...'
-    if dpkg -s vsftpd >/dev/null 2>&1; then
-        echo 'FTP Server is installed. Removing...'
-        apt-get remove --purge vsftpd -y
-        apt-get autoremove -y
-        apt-get autoclean -y
-        if dpkg -s vsftpd >/dev/null 2>&1; then
-            echo 'Error: Unable to remove FTP Server.'
-            return 1
-        else
-            echo 'Success: FTP Server has been removed.'
-            return 0
-        fi
-    else
-        echo 'Success: FTP Server was not installed.'
-        return 0
-    fi
-}
+# remove_ftp_server() {
+#     # 2.2.8 Ensure FTP Server is not installed
+#     echo 'Checking if FTP Server is installed...'
+#     if dpkg -s vsftpd >/dev/null 2>&1; then
+#         echo 'FTP Server is installed. Removing...'
+#         apt-get remove --purge vsftpd -y
+#         apt-get autoremove -y
+#         apt-get autoclean -y
+#         if dpkg -s vsftpd >/dev/null 2>&1; then
+#             echo 'Error: Unable to remove FTP Server.'
+#             return 1
+#         else
+#             echo 'Success: FTP Server has been removed.'
+#             return 0
+#         fi
+#     else
+#         echo 'Success: FTP Server was not installed.'
+#         return 0
+#     fi
+# }
 
 remove_http_server() {
     # 2.2.9 Ensure HTTP server is not installed
@@ -761,7 +761,6 @@ special_purpose_services() {
     LDAP Server
     NFS
     DNS Server
-    FTP Server
     HTTP Server
     IMAP Server
     POP3 Server
@@ -780,7 +779,6 @@ special_purpose_services() {
     remove_ldap_server
     remove_nfs
     remove_dns_server
-    remove_ftp_server
     remove_http_server
     remove_imap_server
     remove_pop3_server
